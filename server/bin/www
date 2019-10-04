@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
 var User = require('../User/User');
+var Sch = require('../Schedule/Schedule');
 
 /**
  * Get port from environment and store in Express.
@@ -90,7 +91,7 @@ function onListening() {
     debug('Listening on ' + bind);
     // User.USER(1, 2, 3, 4);
     // createUser();
-    createSchedule();
+    // createSchedule();
 
 }
 
@@ -105,5 +106,6 @@ async function createUser() {
 }
 
 async function createSchedule() {
-
+    const dataToInput = await Sch.Schedule("Blach", "KVjkfb");
+    console.log(dataToInput);
 }

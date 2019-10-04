@@ -59,26 +59,22 @@ const AddEntry = async (table,entry)=>{
       Query = {
           name: 'create-User',
           // text: 'SELECT * FROM information_schema.columns'
-          text: 'INSERT INTO public."user"("UserID","DisplayName","Email") VALUES($1,$2,$3)'
+          text: 'INSERT INTO public."user"("UserID","DisplayName","Email","Picture","ScheduleID") VALUES($1,$2,$3,$4,$5)'
         }
-         values = [entry[0],entry[1],entry[2]]
+         values = [entry[0],entry[1],entry[2],entry[3],entry[4]]
     }
     const client = await pool.connect();
     try{
         const res = await client.query(Query,values)
         // console.log(Query);
-        if(res.rows.length > 0){
-        // console.log(res);
-        displayValue = true
+        console.log(res);
+        if(res.rowCount > 0){
+        displayValue = values;
         console.log("DATA INPUTTED SUCESSFULLY")
         }else{
-          // console.log(res);
-        console.log("DATA NOT SUCESSFULLY FOUND") 
-        console.log(Query);
-        console.log(values);
-
+        console.log("DATA NOT SUCESSFULLY INSERTTED") 
         
-        displayValue = false
+        displayValue = false,values;
         }
     }finally{
         client.release();
@@ -86,6 +82,10 @@ const AddEntry = async (table,entry)=>{
     return displayValue;
 }
 
+function toObject(data){
+  console.log(data);
+  return {"UserID":data[0],"DisplayName":data[1],"Email":data[2],"Picture":data[3],"ScheduleID:":data[4]}
+}
 
 exports.Contains = Contains;
 exports.addEntry = AddEntry;

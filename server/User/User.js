@@ -31,9 +31,8 @@ async function createUSER(Name,Email,Picture,ID){
         // const defaultSch = await schdule.Schedule("Welcome",ID);
         return res;
     }else{
-    const newUser = await database.addEntry("user",[ID,Name,Email,Picture])
-    const defaultSch = await schdule.Schedule("Welcome",ID);
-
+        const defaultSch = await schdule.Schedule("Welcome",ID);
+        const newUser = await database.addEntry("user",[ID,Name,Email,Picture,defaultSch[0]])
         UserPool.push({"Data": newUser,"Update":45});
     return newUser;
     }
@@ -59,5 +58,5 @@ function User(ID,Name,Email,Picture) {
     this.picture= Picture; 
 }
 const UserPool = [];
-exports.USER = createUSER;
+exports.User = createUSER;
 exports.Pool = UserPool;

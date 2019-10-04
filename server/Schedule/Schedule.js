@@ -18,14 +18,47 @@ async function createSchedule(Name,Owner){
         // [ID:2313] [Monday,2/10/19,[..TimeSlots]]
     const newSchedule = await database.addEntry("Schedule",[ID,Name,Owner])
     console.log("DoesntContainShit");
-    createStoredData();
+    // createStoredData('09/30/2019');
     return newSchedule;
+
     // }
 }
+const days = [
+    'Sun',
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat'
+  ]
 
-async function createStoredData(){
-        // const StoredID = await idGen.makeID(12,"StSch")
-        console.log(Date());
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ]
+
+
+async function createStoredData(Data){
+
+        const d = new Date(Data);
+        const monthName = months[d.getMonth()];
+        const dayName = days[d.getDay()];
+        const formatted = `${dayName}, ${d.getDate()} ${monthName} ${d.getFullYear()}`
+        
+        const formattedDate = `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`
+        console.log("dwdd")
+        console.log(formattedDate);
 }
 const schedulePool = {}
 
