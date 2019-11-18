@@ -1,0 +1,44 @@
+@import './pallette.scss';
+body {
+    height: 100vh;
+    width: auto;
+    background: $lin3;
+    overflow: hidden;
+}
+
+.App {
+    height: 100vh;
+    // background: $lin;
+}
+
+//Base card style, changed latetr in other scss files.
+.Card {
+    background: $card_bg;
+    &__Header {
+        background: $card_header_bg;
+        color: $card_header_t;
+        width: 100%;
+        text-align: center;
+        font-size: 25px;
+        .Options {
+            >a {
+                background: $card_option_bg;
+                color: $card_option_t;
+            }
+            background: $card_options_bg;
+            color:$card_options_t;
+        }
+    }
+    max-width: 50vw;
+    min-width: 25vw;
+    min-height: 25vh;
+    max-height: 50vh;
+}
+
+.Main {
+    margin: 1rem;
+    &.Card {
+        width: 1px;
+        height: 10rem;
+    }
+}

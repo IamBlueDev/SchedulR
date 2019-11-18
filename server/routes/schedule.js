@@ -32,58 +32,12 @@ const schQuery = {
   text: 'SELECT * FROM Schedule WHERE SchID=$1'
 }
 
-router.get('/:id', function (req, res, next) {
-  console.log('Request Id:', req.params.id);
-  console.log("fdwdw");
-  const database = req.app.get('database');
-  let client = database.Client;
-  let pool = database.Pool;
-  let displayValue = ""
+router.get('/:id', async function (req, res, next) {
+    const database = req.app.get('database');
+    let values = [req.params.id];
+    let result = await database.getSchedule(values)
 
-  // client.query(schQuery, req.params.id, (err, res) => {
-  //   console.log(err, res)
-  //   displayValue = "Connected?"
-  //   // client.end()
-    
-  // })
-  let values = [req.params.id];
-  // client.query(' INSERT INTO schedules(d) VALUES($1)',values, (err, res) => {
-
-  //     console.log(err, res)
-  //     displayValue = "Connected?"
-  //     // client.end()
-      
-  //   })
-
-  pool.connect((err,client,done) => {
-    if(err) throw err
-    client.query(schQuery,values,(err,res)=>{
-      done()
-      if(err){
-        console.log(err.stack)
-      }else{
-        console.log(res.rows[0]);
-        displayValue = res.rows[0];
-      }
-    })
-  })
-  
-  
-  //   client.query('SELECT * FROM schedules WHERE d=$1', [req.params.id], (err, res) => {
-  //     console.log(err)
-    
-  //     console.log( res)
-  //   // console.log(res.rows[0]);
-  //   if(res.rows)
-  //   displayValue = res.rows[0];
-
-  //   // displayValue = 
-  //       client.end()
-  // })
-  console.log(displayValue);
-  // res.render('index', { title: displayValue});
-
-  // next();
+    res.send("hello");
 });
 
 module.exports = router;

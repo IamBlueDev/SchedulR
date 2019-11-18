@@ -1,0 +1,43 @@
+ {/* <div className="App">
+      <div className="Main Card">
+        <div className="Card__Header">
+
+        Login
+        <div className="Options"> <a>F</a> <a>G</a></div>
+        <OAuth
+        provider='facebook'
+        key='facebook'
+        socket= {socket}
+      />
+            <OAuth
+        provider='google'
+        key='google'
+        socket= {socket}
+      />
+        </div>
+        <div className="Card__Content"></div>
+        <div className="Card__Footer"> Support</div>
+        
+
+
+      </div> */}
+      {/* <OAuth
+        provider='facebook'
+        key='facebook'
+        socket= {socket}
+      /> */}
+      {/* <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header> */}
+    {/* </div> */}

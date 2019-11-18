@@ -1,6 +1,7 @@
 const passport = require('passport');
 
 const FacebookStrat = require('passport-facebook').Strategy;
+const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 const keys = require("../config");
 
 
@@ -21,10 +22,13 @@ module.exports = () =>{
             callbackURL: "/auth/facebook/callback",
             profileFields: ['id', 'displayName', 'photos', 'email']
           }, callback));
+         
+          passport.use(new GoogleStrategy({
+            clientID: keys.Google.clientID,
+            clientSecret: keys.Google.clientSecret,
+            callbackURL: "/auth/google/callback",
           
-          
-          // (accessToken,refreshToken,profile,cb) =>{
-    //             console.log("called");  
-    //             return cb(null,profile);
-    // }));
+          },callback));
+
+
 }

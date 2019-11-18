@@ -43,6 +43,30 @@ const Contains = async (table,data) =>{
     return displayValue;
 }
 
+const getSchedule = async (data)=>{
+    let displayValue = null;
+
+    const schQuery ={
+      text:'SELECT * FROM public."Schedule" WHERE "SchID" IN (VALUES($1));'
+    }
+    const client = await pool.connect();
+
+    try {
+      const res = await client.query(schQuery,data)
+      if(res.rows.length > 0)
+      displayValue = res.rows[0];
+      else
+      displayValue = false
+    } catch (error) {
+      console.log(error);
+    }finally{
+      client.release();
+      
+    }
+    console.log(displayValue)
+
+}
+
 const AddEntry = async (table,entry)=>{
     let displayValue = false;
     let Query  ={}
@@ -60,6 +84,7 @@ const AddEntry = async (table,entry)=>{
           name: 'create-User',
           // text: 'SELECT * FROM information_schema.columns'
           text: 'INSERT INTO public."user"("UserID","DisplayName","Email","Picture","ScheduleID") VALUES($1,$2,$3,$4,$5)'
+        
         }
          values = [entry[0],entry[1],entry[2],entry[3],entry[4]]
     }
@@ -89,6 +114,7 @@ function toObject(data){
 
 exports.Contains = Contains;
 exports.addEntry = AddEntry;
+exports.getSchedule = getSchedule;
 
 exports.Client = client;
 exports.Pool = pool;

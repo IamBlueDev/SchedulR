@@ -1,16 +1,22 @@
 import React from 'react';
-
+import DataContext from '../context/DataContext/DataContext.js';
 export default class OAuth extends React.Component{
   state={
     user:[],
+    disabled: '',
+    popup: null,
   }
+
+  static contextType = DataContext;  
     componentDidMount() {
         const { socket, provider } = this.props
-    
         socket.on(provider, user => {  
+          console.log(this.state);
+          if(this.popup)
           this.popup.close()
-          this.setState({user})
-          console.log(user);
+
+          // this.setState({user})
+         this.context.login(user);
         })
       }
 
@@ -30,26 +36,36 @@ export default class OAuth extends React.Component{
         const left = (window.innerWidth / 2) - (width / 2)
         const top = (window.innerHeight / 2) - (height / 2)
         const url = `http://localhost:3001/auth/${provider}?socket=${socket.id}`
-        return window.open(url, '',       
-          `toolbar=no, location=no, directories=no, status=no, menubar=no, 
-          scrollbars=no, resizable=no, copyhistory=no, width=${width}, 
-          height=${height}, top=${top}, left=${left}`
-        )
+        
+        const wind = window.open(url, '',       
+        `toolbar=no, location=no, directories=no, status=no, menubar=no, 
+        scrollbars=no, resizable=no, copyhistory=no, width=${width}, 
+        height=${height}, top=${top}, left=${left}`
+        );
+
+        return wind
       }
 
 Auth = ()=>{
-    this.popup = this.openPopup()  
-    this.checkPopup()
-    this.setState({disabled: 'disabled'})
+      if (!this.state.disabled) {
+        // const window = this.openPopup();
+        // console.log(window);
+        // this.setState({popup: "window"})
+  this.popup = this.openPopup()  
+  this.checkPopup()
+  this.setState({disabled: 'disabled'})
+  console.log(this.state)
+      }
 }
     render(){
 
       const {DisplayName,Picture} = this.state.user;
+      const { socket, display } = this.props;
 
             return(
-                <div>
-                        {DisplayName ? <div> {DisplayName}</div> : <div onClick={this.Auth}> Login </div>}
-                </div>
+                <a class="OAuth" >
+                        {this.state.disabled ? <a class="item disabled"> {display}</a> : <a class="item"onClick={this.Auth}> {display} </a>}
+                </a>
 
             )
         }

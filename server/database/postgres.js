@@ -24,13 +24,13 @@ const pool = new Pool({
     password: 'toor',
     port: 5432,
   })
-//   client.connect()
-//   client.query('SELECT * FROM schedules', (err, res) => {
-//     // console.log(err, res)
-//     // console.log(res);
-//     // console.log("Connected");
-//     client.end()
-//   })
+  client.connect()
+  client.query('SELECT * FROM schedules', (err, res) => {
+    console.log(err, res)
+    console.log(res);
+    console.log("Connected");
+    client.end()
+  })
 
 
   exports.Client = client;
